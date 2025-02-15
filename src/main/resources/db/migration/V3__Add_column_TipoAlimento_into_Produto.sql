@@ -1,0 +1,2 @@
+ALTER TABLE Produto
+ADD COLUMN tipo_alimento VARCHAR(50);

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class PedidoController {
 
-    @Autowired
-    private PedidoService orderService;
+//    @Autowired
+//    private PedidoService orderService;
 }

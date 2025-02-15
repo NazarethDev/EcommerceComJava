@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PedidoService {
 
-    @Autowired
-    private PedidoRepository orderRepository;
+//    @Autowired
+//    private PedidoRepository orderRepository;
 }

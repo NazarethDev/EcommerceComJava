@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/adress")
 public class EnderecoController {
 
-    @Autowired
-    private EnderecoService adressService;
+//    @Autowired
+//    private EnderecoService adressService;
 }

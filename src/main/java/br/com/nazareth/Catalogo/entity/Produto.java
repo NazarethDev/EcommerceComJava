@@ -1,7 +1,12 @@
 package br.com.nazareth.Catalogo.entity;
 
+import br.com.nazareth.Catalogo.model.product.ProductData;
+import br.com.nazareth.Catalogo.model.product.ProductDataFood;
+import br.com.nazareth.Catalogo.model.product.TipoAlimento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,8 +18,11 @@ public class Produto {
     private Long id;
     private String nome;
     private String descricao;
-    private double precoVenda;
+    private double precoParaVenda;
     private double precoCompra;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataValidade;
 
     @OneToMany(mappedBy = "produto")
@@ -22,12 +30,40 @@ public class Produto {
     private List<Comentarios> comentarios;
     private double avaliacao;
 
+    private Boolean alimento = false;
+
+    @Enumerated(EnumType.STRING)
+    private TipoAlimento tipoAlimento;
+
+    private int quant;
+
+
+    public Produto (ProductData newProductData){
+        this.nome = newProductData.productName();
+        this.descricao = newProductData.description();
+        this.precoParaVenda = newProductData.precoParaVenda();
+        this.precoCompra = newProductData.precoCompra();
+        this.quant = newProductData.quant();
+    }
+
+    public Produto (){}
+
+    public Produto (ProductDataFood newProductData){
+        this.nome = newProductData.productName();
+        this.descricao = newProductData.description();
+        this.precoCompra = newProductData.precoCompra();
+        this.precoParaVenda = newProductData.precoParaVenda();
+        this.alimento = true;
+        this.dataValidade = newProductData.dataValidade();
+        this.tipoAlimento = newProductData.tipoAlimento();
+        this.quant = newProductData.quant();
+    }
+
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) {this.nome = nome;
     }
 
     public Long getId() {
@@ -46,12 +82,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPrecoVenda() {
-        return precoVenda;
+    public double getPrecoParaVenda() {
+        return precoParaVenda;
     }
 
-    public void setPrecoVenda(double precoVenda) {
-        this.precoVenda = precoVenda;
+    public void setPrecoParaVenda(double precoParaVenda) {
+        this.precoParaVenda = precoParaVenda;
     }
 
     public double getPrecoCompra() {
