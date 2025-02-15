@@ -1,9 +1,7 @@
 package br.com.nazareth.Catalogo.service;
 
 import br.com.nazareth.Catalogo.entity.Produto;
-import br.com.nazareth.Catalogo.model.product.ProductData;
-import br.com.nazareth.Catalogo.model.product.ProductDataFood;
-import br.com.nazareth.Catalogo.model.product.showProductDetails;
+import br.com.nazareth.Catalogo.model.product.*;
 import br.com.nazareth.Catalogo.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +30,30 @@ public class ProdutoService {
             return ResponseEntity.ok(new showProductDetails(product.get()));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity showFoodDetails(@PathVariable Long id){
+        var food = productRepository.findById(id);
+        if (food.isPresent()){
+            return ResponseEntity.ok(new showFoodDetails(food.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity searchByCategory(@PathVariable CategoriaProduto categoria){
+        var categSelecionada = productRepository.findByCategoriaProduto(categoria);
+        if (categSelecionada.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(categSelecionada);
+    }
+
+    public ResponseEntity searchByNome(@PathVariable String nomeProduto){
+        var buscaNome = productRepository.findByNomeContaining(nomeProduto);
+        if (buscaNome.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(buscaNome);
     }
 
 }

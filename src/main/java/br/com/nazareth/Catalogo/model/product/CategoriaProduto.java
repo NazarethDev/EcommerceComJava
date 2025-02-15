@@ -2,6 +2,8 @@ package br.com.nazareth.Catalogo.model.product;
 
 public enum CategoriaProduto {
     ELETRONICOS,
+    SMARTPHONES,
+    INFORMATICA,
     ROUPAS_E_ACESSORIOS,
     BELEZA_E_CUIDADOS_PESSOAIS,
     CASA_E_DECORACAO,

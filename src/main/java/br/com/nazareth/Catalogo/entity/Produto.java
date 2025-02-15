@@ -31,8 +31,6 @@ public class Produto {
     private List<Comentarios> comentarios;
     private double avaliacao;
 
-    private Boolean alimento = false;
-
     @Enumerated(EnumType.STRING)
     private TipoAlimento tipoAlimento;
 
@@ -58,7 +56,6 @@ public class Produto {
         this.descricao = newProductData.description();
         this.precoCompra = newProductData.precoCompra();
         this.precoParaVenda = newProductData.precoParaVenda();
-        this.alimento = true;
         this.dataValidade = newProductData.dataValidade();
         this.tipoAlimento = newProductData.tipoAlimento();
         this.quant = newProductData.quant();
@@ -125,5 +122,29 @@ public class Produto {
 
     public void setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    public TipoAlimento getTipoAlimento() {
+        return tipoAlimento;
+    }
+
+    public void setTipoAlimento(TipoAlimento tipoAlimento) {
+        this.tipoAlimento = tipoAlimento;
+    }
+
+    public CategoriaProduto getCategoriaProduto() {
+        return categoriaProduto;
+    }
+
+    public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
+        this.categoriaProduto = categoriaProduto;
+    }
+
+    public int getQuant() {
+        return quant;
+    }
+
+    public void setQuant(int quant) {
+        this.quant = quant;
     }
 }
