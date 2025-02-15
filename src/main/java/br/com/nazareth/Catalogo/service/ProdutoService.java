@@ -51,9 +51,19 @@ public class ProdutoService {
     public ResponseEntity searchByNome(@PathVariable String nomeProduto){
         var buscaNome = productRepository.findByNomeContaining(nomeProduto);
         if (buscaNome.isEmpty()){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(buscaNome);
+    }
+
+    public ResponseEntity deleteProduct(@PathVariable Long id){
+        var produto = productRepository.findById(id);
+        if (produto.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        produto.get().setDeleted(true);
+        productRepository.save(produto.get());
+        return ResponseEntity.noContent().build();
     }
 
 }

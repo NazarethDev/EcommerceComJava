@@ -39,6 +39,8 @@ public class Produto {
 
     private int quant;
 
+    private Boolean deleted = false;
+
 
     public Produto (ProductData newProductData){
         this.nome = newProductData.productName();
@@ -146,5 +148,13 @@ public class Produto {
 
     public void setQuant(int quant) {
         this.quant = quant;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }
