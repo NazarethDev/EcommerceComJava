@@ -1,6 +1,7 @@
 package br.com.nazareth.Catalogo.model.product;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record ProductData (
         @NotBlank
@@ -12,6 +13,8 @@ public record ProductData (
         @NotBlank
         Double precoCompra,
         @NotBlank
-        int quant
+        int quant,
+        @NotNull
+        CategoriaProduto categoriaProduto
 ) {
 }

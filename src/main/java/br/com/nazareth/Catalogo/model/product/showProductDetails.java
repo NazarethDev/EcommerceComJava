@@ -23,5 +23,4 @@ public record showProductDetails(
                 produto.getAvaliacao()
         );
     }
-
 }
