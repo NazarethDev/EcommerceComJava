@@ -6,7 +6,7 @@ import br.com.nazareth.Catalogo.entity.Produto;
 import java.time.LocalDate;
 import java.util.List;
 
-public record showFoodDetails(
+public record ShowFoodDetails(
 
         Long id,
         String nome,
@@ -18,7 +18,7 @@ public record showFoodDetails(
         LocalDate dataValidade,
         TipoAlimento tipoAlimento
 ) {
-    public showFoodDetails (Produto produto){
+    public ShowFoodDetails(Produto produto){
         this(
                 produto.getId(),
                 produto.getNome(),

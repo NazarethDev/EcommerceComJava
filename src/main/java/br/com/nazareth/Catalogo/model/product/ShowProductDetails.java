@@ -5,7 +5,7 @@ import br.com.nazareth.Catalogo.entity.Produto;
 
 import java.util.List;
 
-public record showProductDetails(
+public record ShowProductDetails(
         Long id,
         String nome,
         String descricao,
@@ -14,7 +14,7 @@ public record showProductDetails(
         double avaliacao,
         CategoriaProduto categoria
 ) {
-    public showProductDetails(Produto produto){
+    public ShowProductDetails(Produto produto){
         this(
                 produto.getId(),
                 produto.getNome(),

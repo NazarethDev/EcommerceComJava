@@ -1,15 +1,13 @@
 package br.com.nazareth.Catalogo.entity;
 
-import br.com.nazareth.Catalogo.model.product.CategoriaProduto;
-import br.com.nazareth.Catalogo.model.product.ProductData;
-import br.com.nazareth.Catalogo.model.product.ProductDataFood;
-import br.com.nazareth.Catalogo.model.product.TipoAlimento;
+import br.com.nazareth.Catalogo.model.product.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -36,10 +34,18 @@ public class Produto {
 
     @Enumerated(EnumType.STRING)
     private CategoriaProduto categoriaProduto;
-
     private int quant;
-
     private Boolean deleted = false;
+    private Boolean alimento = false;
+
+    @DateTimeFormat(pattern =  "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate createdAt;
+
+    @DateTimeFormat(pattern =  "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate updatedAt;
+
 
 
     public Produto (ProductData newProductData){
@@ -49,6 +55,7 @@ public class Produto {
         this.precoCompra = newProductData.precoCompra();
         this.quant = newProductData.quant();
         this.categoriaProduto = newProductData.categoriaProduto();
+        this.createdAt = LocalDate.now();
     }
 
     public Produto (){}
@@ -61,7 +68,45 @@ public class Produto {
         this.dataValidade = newProductData.dataValidade();
         this.tipoAlimento = newProductData.tipoAlimento();
         this.quant = newProductData.quant();
+        this.alimento = true;
+        this.createdAt = LocalDate.now();
     }
+
+
+    public void atualizarAlimento(FoodUpdatedDates dadosAtualizados){
+        this.nome = dadosAtualizados.productName();
+        this.descricao = dadosAtualizados.description();
+        this.precoParaVenda = dadosAtualizados.precoParaVenda();
+        this.precoCompra = dadosAtualizados.precoCompra();
+        this.dataValidade = dadosAtualizados.dataValidade();
+        this.quant = dadosAtualizados.quant();
+        this.tipoAlimento = dadosAtualizados.tipoAlimento();
+        this.updatedAt = LocalDate.now();
+    }
+
+//    public void atualizarAlimento(FoodUpdatedDates dadosAtualizados) {
+//        if (dadosAtualizados.productName() != null) {
+//            this.nome = dadosAtualizados.productName();
+//        }
+//        if (dadosAtualizados.description() != null) {
+//            this.descricao = dadosAtualizados.description();
+//        }
+//        if (dadosAtualizados.precoParaVenda() != null) {
+//            this.precoParaVenda = dadosAtualizados.precoParaVenda();
+//        }
+//        if (dadosAtualizados.precoCompra() != null) {
+//            this.precoCompra = dadosAtualizados.precoCompra();
+//        }
+//        if (dadosAtualizados.dataValidade() != null) {
+//            this.dataValidade = dadosAtualizados.dataValidade();
+//        }
+//        if (dadosAtualizados.quant() != null) {
+//            this.quant = dadosAtualizados.quant();
+//        }
+//
+//        this.updatedAt = LocalDate.now();
+//    }
+
 
     public String getNome() {
         return nome;
@@ -156,5 +201,13 @@ public class Produto {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Boolean getAlimento() {
+        return alimento;
+    }
+
+    public void setAlimento(Boolean alimento) {
+        this.alimento = alimento;
     }
 }
