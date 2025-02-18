@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -34,7 +33,7 @@ public class Produto {
 
     @Enumerated(EnumType.STRING)
     private CategoriaProduto categoriaProduto;
-    private int quant;
+    private Integer quant;
     private Boolean deleted = false;
     private Boolean alimento = false;
 
@@ -72,40 +71,33 @@ public class Produto {
         this.createdAt = LocalDate.now();
     }
 
-
-    public void atualizarAlimento(FoodUpdatedDates dadosAtualizados){
-        this.nome = dadosAtualizados.productName();
-        this.descricao = dadosAtualizados.description();
-        this.precoParaVenda = dadosAtualizados.precoParaVenda();
-        this.precoCompra = dadosAtualizados.precoCompra();
-        this.dataValidade = dadosAtualizados.dataValidade();
-        this.quant = dadosAtualizados.quant();
-        this.tipoAlimento = dadosAtualizados.tipoAlimento();
+    public void update(UpdateProduct dadosAtualizados) {
+        if (dadosAtualizados.productName() != null) {
+            this.nome = dadosAtualizados.productName();
+        }
+        if (dadosAtualizados.description() != null) {
+            this.descricao = dadosAtualizados.description();
+        }
+        if (dadosAtualizados.precoParaVenda() != null) {
+            this.precoParaVenda = dadosAtualizados.precoParaVenda();
+        }
+        if (dadosAtualizados.precoCompra() != null) {
+            this.precoCompra = dadosAtualizados.precoCompra();
+        }
+        if (dadosAtualizados.dataValidade() != null) {
+            this.dataValidade = dadosAtualizados.dataValidade();
+        }
+        if (dadosAtualizados.quant() != null) {
+            this.quant = dadosAtualizados.quant();
+        }
+        if (dadosAtualizados.categoriaProduto() != null){
+            this.categoriaProduto = dadosAtualizados.categoriaProduto();
+        }
+        if (dadosAtualizados.alimento() != null){
+            this.alimento = dadosAtualizados.alimento();
+        }
         this.updatedAt = LocalDate.now();
     }
-
-//    public void atualizarAlimento(FoodUpdatedDates dadosAtualizados) {
-//        if (dadosAtualizados.productName() != null) {
-//            this.nome = dadosAtualizados.productName();
-//        }
-//        if (dadosAtualizados.description() != null) {
-//            this.descricao = dadosAtualizados.description();
-//        }
-//        if (dadosAtualizados.precoParaVenda() != null) {
-//            this.precoParaVenda = dadosAtualizados.precoParaVenda();
-//        }
-//        if (dadosAtualizados.precoCompra() != null) {
-//            this.precoCompra = dadosAtualizados.precoCompra();
-//        }
-//        if (dadosAtualizados.dataValidade() != null) {
-//            this.dataValidade = dadosAtualizados.dataValidade();
-//        }
-//        if (dadosAtualizados.quant() != null) {
-//            this.quant = dadosAtualizados.quant();
-//        }
-//
-//        this.updatedAt = LocalDate.now();
-//    }
 
 
     public String getNome() {
@@ -187,12 +179,8 @@ public class Produto {
         this.categoriaProduto = categoriaProduto;
     }
 
-    public int getQuant() {
+    public Integer getQuant() {
         return quant;
-    }
-
-    public void setQuant(int quant) {
-        this.quant = quant;
     }
 
     public Boolean getDeleted() {
@@ -209,5 +197,25 @@ public class Produto {
 
     public void setAlimento(Boolean alimento) {
         this.alimento = alimento;
+    }
+
+    public void setQuant(Integer quant) {
+        this.quant = quant;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

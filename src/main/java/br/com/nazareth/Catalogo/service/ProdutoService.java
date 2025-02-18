@@ -6,7 +6,6 @@ import br.com.nazareth.Catalogo.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class ProdutoService {
@@ -14,20 +13,20 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository productRepository;
 
-//cria um novo produto
+    //cria um novo produto
     public Produto newProduct(ProductData dadosNovoProduto){
         Produto produto = new Produto(dadosNovoProduto);
         return productRepository.save(produto);
     }
 
-//cria um novo produto do tipo ingerível
+    //cria um novo produto do tipo ingerível
     public Produto newFood(ProductDataFood dadosNovoProduto){
         Produto food = new Produto(dadosNovoProduto);
         return productRepository.save(food);
     }
 
-//mostra um produto com base no Id
-    public ResponseEntity showProduct(@PathVariable Long id){
+    //mostra um produto com base no Id
+    public ResponseEntity showProduct(Long id){
         var product = productRepository.findById(id);
         if (product.isPresent()){
             return ResponseEntity.ok(new ShowProductDetails(product.get()));
@@ -35,8 +34,8 @@ public class ProdutoService {
         return ResponseEntity.notFound().build();
     }
 
-//mostra os detalhes sobre um produto do tipo alimento
-    public ResponseEntity showFoodDetails(@PathVariable Long id){
+    //mostra os detalhes sobre um produto do tipo alimento
+    public ResponseEntity showFoodDetails(Long id){
         var food = productRepository.findById(id);
         if (food.isPresent()){
             return ResponseEntity.ok(new ShowFoodDetails(food.get()));
@@ -45,7 +44,7 @@ public class ProdutoService {
     }
 
     //apresenta os produtos de acordo com a categoria indicada
-    public ResponseEntity searchByCategory(@PathVariable CategoriaProduto categoria){
+    public ResponseEntity searchByCategory(CategoriaProduto categoria){
         var categSelecionada = productRepository.findByCategoriaProduto(categoria);
         if (categSelecionada.isEmpty()){
             return ResponseEntity.noContent().build();
@@ -54,7 +53,7 @@ public class ProdutoService {
     }
 
     //encontra produtos através do nome
-    public ResponseEntity searchByNome(@PathVariable String nomeProduto){
+    public ResponseEntity searchByNome(String nomeProduto){
         var buscaNome = productRepository.findByNomeContaining(nomeProduto);
         if (buscaNome.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -63,7 +62,7 @@ public class ProdutoService {
     }
 
     //configura um produto como 'deletado' no banco de dados
-    public ResponseEntity deleteProduct(@PathVariable Long id){
+    public ResponseEntity deleteProduct(Long id){
         var produto = productRepository.findById(id);
         if (produto.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -74,14 +73,17 @@ public class ProdutoService {
     }
 
     //atualiza um produto
-    public ResponseEntity updateProduct(@PathVariable Long id){
+    public ResponseEntity updateProduct(Long id, UpdateProduct dadosAtualizados) {
         var produto = productRepository.findById(id);
-        if (produto.isEmpty()){
+        if (produto.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        if (produto.get().getAlimento() == true){
-
+        produto.get().update(dadosAtualizados);
+        if (Boolean.TRUE.equals(produto.get().getAlimento())){
+            return ResponseEntity.ok(new ProdutoAlimentoAtualizado(produto.get()));
+        } else{
+            return ResponseEntity.ok(new ProdutoAtualizado(produto.get()));
         }
-    }
 
+    }
 }
