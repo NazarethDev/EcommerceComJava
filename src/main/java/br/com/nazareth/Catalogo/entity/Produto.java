@@ -218,4 +218,25 @@ public class Produto {
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id: " + id +
+                ", nome: " + nome + '\'' +
+                ", descrição: " + descricao + '\'' +
+                ", Preço para venda: " + precoParaVenda +
+                ", precoCompra=" + precoCompra +
+                ", dataValidade=" + dataValidade +
+                ", comentarios=" + comentarios +
+                ", avaliacao=" + avaliacao +
+                ", tipoAlimento=" + tipoAlimento +
+                ", categoriaProduto=" + categoriaProduto +
+                ", quant=" + quant +
+                ", deleted=" + deleted +
+                ", alimento=" + alimento +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

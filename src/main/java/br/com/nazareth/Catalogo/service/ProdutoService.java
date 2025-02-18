@@ -13,39 +13,35 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository productRepository;
 
+
+    //mostra produtos com base no id
+    public ResponseEntity showProductDetails(Long id) {
+        var produtoOptional = productRepository.findById(id);
+        if (produtoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new ShowProductDetails(produtoOptional.get()));
+    }
+
     //cria um novo produto
-    public Produto newProduct(ProductData dadosNovoProduto){
+    public ResponseEntity newProduct(ProductData dadosNovoProduto){
         Produto produto = new Produto(dadosNovoProduto);
-        return productRepository.save(produto);
+        productRepository.save(produto);
+        return ResponseEntity.ok(new ProductData(produto));
     }
 
-    //cria um novo produto do tipo ingerível
-    public Produto newFood(ProductDataFood dadosNovoProduto){
+    //cria um novo produto do tipo alimento
+    public ResponseEntity newFood(ProductDataFood dadosNovoProduto){
         Produto food = new Produto(dadosNovoProduto);
-        return productRepository.save(food);
-    }
-
-    //mostra um produto com base no Id
-    public ResponseEntity showProduct(Long id){
-        var product = productRepository.findById(id);
-        if (product.isPresent()){
-            return ResponseEntity.ok(new ShowProductDetails(product.get()));
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    //mostra os detalhes sobre um produto do tipo alimento
-    public ResponseEntity showFoodDetails(Long id){
-        var food = productRepository.findById(id);
-        if (food.isPresent()){
-            return ResponseEntity.ok(new ShowFoodDetails(food.get()));
-        }
-        return ResponseEntity.notFound().build();
+        productRepository.save(food);
+        return ResponseEntity.ok(new ProductDataFood(food));
     }
 
     //apresenta os produtos de acordo com a categoria indicada
-    public ResponseEntity searchByCategory(CategoriaProduto categoria){
-        var categSelecionada = productRepository.findByCategoriaProduto(categoria);
+    public ResponseEntity searchByCategory(String categoria){
+        String string = categoria.toUpperCase().replace(" ", "_");
+        CategoriaProduto categoriaEnum = CategoriaProduto.valueOf(string);
+        var categSelecionada = productRepository.findByCategoriaProduto(categoriaEnum);
         if (categSelecionada.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -84,6 +80,5 @@ public class ProdutoService {
         } else{
             return ResponseEntity.ok(new ProdutoAtualizado(produto.get()));
         }
-
     }
 }

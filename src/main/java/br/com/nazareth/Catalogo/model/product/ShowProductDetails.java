@@ -3,6 +3,7 @@ package br.com.nazareth.Catalogo.model.product;
 import br.com.nazareth.Catalogo.entity.Comentarios;
 import br.com.nazareth.Catalogo.entity.Produto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record ShowProductDetails(
@@ -12,9 +13,12 @@ public record ShowProductDetails(
         double precoVenda,
         List<Comentarios> comentarios,
         double avaliacao,
-        CategoriaProduto categoria
+        CategoriaProduto categoria,
+        LocalDate dataValidade,
+        TipoAlimento tipoAlimento,
+        Integer quant
 ) {
-    public ShowProductDetails(Produto produto){
+    public ShowProductDetails(Produto produto) {
         this(
                 produto.getId(),
                 produto.getNome(),
@@ -22,7 +26,10 @@ public record ShowProductDetails(
                 produto.getPrecoParaVenda(),
                 produto.getComentarios(),
                 produto.getAvaliacao(),
-                produto.getCategoriaProduto()
+                produto.getCategoriaProduto(),
+                produto.getAlimento() ? produto.getDataValidade() : null,
+                produto.getAlimento() ? produto.getTipoAlimento() : null,
+                produto.getQuant()
         );
     }
 }

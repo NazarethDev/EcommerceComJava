@@ -1,5 +1,6 @@
 package br.com.nazareth.Catalogo.model.product;
 
+import br.com.nazareth.Catalogo.entity.Produto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,6 +20,11 @@ public record ProductDataFood(
         @NotNull
         TipoAlimento tipoAlimento,
         @NotBlank
-        int quant
+        Integer quant
 ){
+        public ProductDataFood (Produto produto){
+                this(produto.getNome(), produto.getDescricao(), produto.getPrecoParaVenda(),
+                        produto.getPrecoCompra(), produto.getDataValidade(),
+                        produto.getTipoAlimento(), produto.getQuant());
+        }
 }
