@@ -1,6 +1,7 @@
 package br.com.nazareth.Catalogo.entity;
 
-import br.com.nazareth.Catalogo.model.TipoEndereco;
+import br.com.nazareth.Catalogo.model.adress.NewAdress;
+import br.com.nazareth.Catalogo.model.adress.TipoEndereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -20,11 +21,25 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String pais;
+    private int telefone;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     @JsonIgnore
     private Usuario usuario;
+
+    public Endereco (NewAdress dadosEndereco){
+        this.logradouro = dadosEndereco.logradouro();
+        this.numeroDaCasa = dadosEndereco.numeroDaCasa();
+        this.complemento = dadosEndereco.complemento();;
+        this.cep = dadosEndereco.cep();
+        this.cidade = dadosEndereco.cidade();
+        this.estado = dadosEndereco.estado();
+        this.pais = dadosEndereco.pais();
+        this.tipo = dadosEndereco.tipoEndereco();
+        this.telefone = dadosEndereco.telefone();
+    }
+
 
     public String getLogradouro() {
         return logradouro;
@@ -105,4 +120,8 @@ public class Endereco {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public int getTelefone() {return telefone;}
+
+    public void setTelefone(int telefone) {this.telefone = telefone;}
 }

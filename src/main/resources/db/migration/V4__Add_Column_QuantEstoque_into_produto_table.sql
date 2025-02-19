@@ -1,2 +1,0 @@
-ALTER TABLE Produto
-ADD COLUMN quant_estoque INT NOT NULL;

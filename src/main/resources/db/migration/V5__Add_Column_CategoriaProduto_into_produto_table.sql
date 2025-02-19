@@ -1,2 +1,0 @@
-ALTER TABLE Produto
-ADD COLUMN categoria_produto VARCHAR(255) NOT NULL;
