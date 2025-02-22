@@ -53,9 +53,7 @@ public class UsuarioService {
         novoUsuario.setNome(dados.nome());
         novoUsuario.setEmail(dados.email());
         novoUsuario.setSenha(passwordEncoder.encode(dados.senha()));
-        // Defina o role conforme sua lógica. Exemplo: se o cadastro for de cliente:
         novoUsuario.setRole(Role.CLIENTE);
-        // Se for administrador, setRole(Role.ADMIN);
         usuarioRepository.save(novoUsuario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
     }
