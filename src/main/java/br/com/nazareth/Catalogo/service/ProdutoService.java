@@ -1,11 +1,14 @@
 package br.com.nazareth.Catalogo.service;
 
 import br.com.nazareth.Catalogo.entity.Produto;
+import br.com.nazareth.Catalogo.entity.Usuario;
 import br.com.nazareth.Catalogo.model.product.*;
 import br.com.nazareth.Catalogo.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class ProdutoService {

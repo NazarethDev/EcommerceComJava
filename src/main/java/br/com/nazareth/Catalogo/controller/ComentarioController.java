@@ -24,4 +24,10 @@ public class ComentarioController {
     private ResponseEntity showProductComents(@PathVariable Long productId){
         return comentService.showComents(productId);
     }
+
+    //deleta um comentário
+    @DeleteMapping
+    public ResponseEntity deleteComent(@PathVariable Long id, @AuthenticationPrincipal Usuario autor){
+        return comentService.deleteComent(id, autor);
+    }
 }
