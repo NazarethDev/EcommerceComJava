@@ -1,7 +1,12 @@
 package br.com.nazareth.Catalogo.entity;
 
+import br.com.nazareth.Catalogo.model.coment.NewComent;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Entity
 public class Comentarios {
@@ -18,6 +23,17 @@ public class Comentarios {
     @JoinColumn(name = "produto_id")
     @JsonIgnore
     private Produto produto;
+
+    @DateTimeFormat(pattern =  "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataCriacao, dataAtualizacao;
+
+    public Comentarios(NewComent comentario, Usuario autor, Produto produto){
+        this.produto = produto;
+        this.autor = autor;
+        this.mensagem = comentario.mensagem();
+        this.dataCriacao = LocalDate.now();
+    }
 
     public String getMensagem() {
         return mensagem;
@@ -49,5 +65,21 @@ public class Comentarios {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDate getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDate dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 }
