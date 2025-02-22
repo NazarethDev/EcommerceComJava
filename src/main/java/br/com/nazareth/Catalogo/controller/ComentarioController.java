@@ -1,6 +1,7 @@
 package br.com.nazareth.Catalogo.controller;
 
 import br.com.nazareth.Catalogo.entity.Usuario;
+import br.com.nazareth.Catalogo.model.coment.AtualizaComentario;
 import br.com.nazareth.Catalogo.model.coment.NewComent;
 import br.com.nazareth.Catalogo.service.ComentariosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class ComentarioController {
     @DeleteMapping
     public ResponseEntity deleteComent(@PathVariable Long id, @AuthenticationPrincipal Usuario autor){
         return comentService.deleteComent(id, autor);
+    }
+
+    //atualiza comentário
+    @PutMapping
+    public ResponseEntity updateComent(@PathVariable Long id, @AuthenticationPrincipal Usuario autor, @RequestBody AtualizaComentario dados){
+        return comentService.updateComent(id, autor, dados);
     }
 }

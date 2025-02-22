@@ -2,9 +2,7 @@ package br.com.nazareth.Catalogo.service;
 
 import br.com.nazareth.Catalogo.entity.Comentarios;
 import br.com.nazareth.Catalogo.entity.Usuario;
-import br.com.nazareth.Catalogo.model.coment.ComentarioGerado;
-import br.com.nazareth.Catalogo.model.coment.ComentsList;
-import br.com.nazareth.Catalogo.model.coment.NewComent;
+import br.com.nazareth.Catalogo.model.coment.*;
 import br.com.nazareth.Catalogo.repository.ComentariosRepository;
 import br.com.nazareth.Catalogo.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -58,4 +56,20 @@ public class ComentariosService {
         return ResponseEntity.notFound().build();
     }
 
+    // atualizar comentario
+    public ResponseEntity updateComent(Long idComentario, Usuario autor, AtualizaComentario mensagem){
+        var comentariosOptional = comentRepository.findById(idComentario);
+        if( !comentariosOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Comentário não encontrado no banco de dados");
+        }
+        var comentario = comentariosOptional.get();
+        if (!comentario.getAutor().equals(autor) && !autor.getRole().equals("ADMIN")) {
+            return ResponseEntity.status(HttpStatus.LOCKED)
+                    .body("Apenas o usuário que criou o comentário pode excluí-lo.");
+        }
+        comentario.atualizarComentario(mensagem);
+        comentRepository.save(comentario);
+        return ResponseEntity.ok(new ComentarioAtualizado("Comentario atualizado",comentario));
+    }
 }

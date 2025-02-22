@@ -1,5 +1,6 @@
 package br.com.nazareth.Catalogo.entity;
 
+import br.com.nazareth.Catalogo.model.coment.AtualizaComentario;
 import br.com.nazareth.Catalogo.model.coment.NewComent;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +34,11 @@ public class Comentarios {
         this.autor = autor;
         this.mensagem = comentario.mensagem();
         this.dataCriacao = LocalDate.now();
+    }
+
+    public void atualizarComentario(AtualizaComentario dados){
+        this.mensagem = dados.mensagem();
+        this.dataAtualizacao = LocalDate.now();
     }
 
     public String getMensagem() {
