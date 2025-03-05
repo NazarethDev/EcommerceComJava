@@ -17,13 +17,10 @@ public interface AdressRepository extends JpaRepository <Endereco, Long> {
             "AND (e.enderecoEntrega = true OR e.enderecoFaturacao = true)")
     List<Endereco> allAdresses(@Param("usuarioId") Long usuarioId);
 
-    @Query("SELECT e FROM Endereco e JOIN e.usuario u" +
-           "WHERE u.id = :userId" +
-           "AND (e>enderecoEntrega = true")
-    List <Endereco> enderecosEntrega(@Param("userId") Long userId);
+    @Query("SELECT e FROM Endereco e JOIN e.usuario u " +
+            "WHERE u.id = :userId " +
+            "AND (:isEntrega = true AND e.enderecoEntrega = true OR " +
+            ":isEntrega = false AND e.enderecoFaturacao = true)")
+    List<Endereco> searchAdress(@Param("userId") Long userId, @Param("isEntrega") boolean isEntrega);
 
-    @Query("SELECT e FROM Endereco e JOIN e.usuario u" +
-            "WHERE u.id = :userId" +
-            "AND (e>enderecoFaturacao = true")
-    List <Endereco> enderecosFaturacao(@Param("userId") Long userId);
 }
