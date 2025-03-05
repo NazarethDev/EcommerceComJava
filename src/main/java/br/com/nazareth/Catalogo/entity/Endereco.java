@@ -1,7 +1,6 @@
 package br.com.nazareth.Catalogo.entity;
 
 import br.com.nazareth.Catalogo.model.adress.NewAdress;
-import br.com.nazareth.Catalogo.model.adress.TipoEndereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -10,9 +9,6 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    private TipoEndereco tipo;
 
     private String logradouro;
     private int numeroDaCasa;
@@ -28,7 +24,10 @@ public class Endereco {
     @JsonIgnore
     private Usuario usuario;
 
-    public Endereco (NewAdress dadosEndereco){
+    private boolean enderecoEntrega;
+    private boolean enderecoFaturacao;
+
+    public Endereco (NewAdress dadosEndereco, Usuario usuario){
         this.logradouro = dadosEndereco.logradouro();
         this.numeroDaCasa = dadosEndereco.numeroDaCasa();
         this.complemento = dadosEndereco.complemento();;
@@ -36,9 +35,13 @@ public class Endereco {
         this.cidade = dadosEndereco.cidade();
         this.estado = dadosEndereco.estado();
         this.pais = dadosEndereco.pais();
-        this.tipo = dadosEndereco.tipoEndereco();
         this.telefone = dadosEndereco.telefone();
+        this.usuario = usuario;
+        this.enderecoEntrega = dadosEndereco.enderecoEntrega();
+        this.enderecoFaturacao = dadosEndereco.enderecoFaturacao();
     }
+
+    public Endereco(){}
 
 
     public String getLogradouro() {
@@ -105,14 +108,6 @@ public class Endereco {
         this.id = id;
     }
 
-    public TipoEndereco getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoEndereco tipo) {
-        this.tipo = tipo;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -124,4 +119,12 @@ public class Endereco {
     public int getTelefone() {return telefone;}
 
     public void setTelefone(int telefone) {this.telefone = telefone;}
+
+    public boolean isEnderecoEntrega() {return enderecoEntrega;}
+
+    public void setEnderecoEntrega(boolean enderecoEntrega) {this.enderecoEntrega = enderecoEntrega;}
+
+    public boolean isEnderecoFaturacao() {return enderecoFaturacao;}
+
+    public void setEnderecoFaturacao(boolean enderecoFaturacao) {this.enderecoFaturacao = enderecoFaturacao;}
 }

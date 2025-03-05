@@ -1,4 +1,4 @@
-package br.com.nazareth.Catalogo.service;
+package br.com.nazareth.Catalogo.service.user;
 
 import br.com.nazareth.Catalogo.entity.Usuario;
 import br.com.nazareth.Catalogo.model.user.DadosAutenticacao;

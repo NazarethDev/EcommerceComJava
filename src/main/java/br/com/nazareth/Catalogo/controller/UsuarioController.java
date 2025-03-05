@@ -1,7 +1,7 @@
 package br.com.nazareth.Catalogo.controller;
 
 import br.com.nazareth.Catalogo.model.user.DadosCadastro;
-import br.com.nazareth.Catalogo.service.UsuarioService;
+import br.com.nazareth.Catalogo.service.user.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

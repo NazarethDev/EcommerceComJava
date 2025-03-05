@@ -44,7 +44,7 @@ public class ComentariosService {
     public  ResponseEntity deleteComent(Long id, Usuario autor){
         var comentarioOpt = comentRepository.findById(id);
         if (comentarioOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("Comentário não encontrado. Verifique o ID e tente novamente.");
         }
         var comentario = comentarioOpt.get();
