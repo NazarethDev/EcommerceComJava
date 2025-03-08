@@ -1,5 +1,6 @@
 package br.com.nazareth.Catalogo.entity;
 
+import br.com.nazareth.Catalogo.model.adress.DadosEndereco;
 import br.com.nazareth.Catalogo.model.adress.NewAdress;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -43,6 +44,25 @@ public class Endereco {
 
     public Endereco(){}
 
+    public void update(DadosEndereco dados) {
+        if(dados.logradouro() != null){
+            this.logradouro = dados.logradouro();
+        }
+        this.numeroDaCasa = dados.numeroDaCasa();
+        if (dados.complemento() != null) {
+            this.complemento = dados.complemento();
+        }
+        if(dados.cidade() != null){
+            this.cidade = dados.cidade();
+        }
+        if (dados.estado() != null){
+            this.estado = dados.estado();
+        }
+        if (dados.pais() != null){
+            this.pais = dados.pais();
+        }
+        this.telefone = dados.telefone();
+    }
 
     public String getLogradouro() {
         return logradouro;
@@ -127,4 +147,5 @@ public class Endereco {
     public boolean isEnderecoFaturacao() {return enderecoFaturacao;}
 
     public void setEnderecoFaturacao(boolean enderecoFaturacao) {this.enderecoFaturacao = enderecoFaturacao;}
+
 }

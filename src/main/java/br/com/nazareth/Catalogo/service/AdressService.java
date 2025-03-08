@@ -8,7 +8,6 @@ import br.com.nazareth.Catalogo.repository.AdressRepository;
 import br.com.nazareth.Catalogo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,10 @@ public class AdressService {
     @Autowired
     private UsuarioRepository userRepository;
 
+    public boolean verifyAdress(Long id){
+        return adressRepository.existsById(id);
+    }
+
     //cria um novo endereco
     public ResponseEntity novoEndereco(NewAdress dados, Long userId){
         Usuario usuario = userRepository.findById(userId).get();
@@ -31,7 +34,7 @@ public class AdressService {
     }
 
     //mostrar enderecos de entrega ou faturação. No parâmentro de busca, use true para endereços de entrega e false para endereços de faturação.
-    public ResponseEntity<List<DadosEndereco>> enderecosEntrega(Long userId, boolean isEntrega){
+    public ResponseEntity<List<DadosEndereco>> showAdresses(Long userId, boolean isEntrega){
         List<Endereco> enderecos = adressRepository.searchAdress(userId, isEntrega);
 
         if (enderecos.isEmpty()){
@@ -41,4 +44,25 @@ public class AdressService {
                 .map(DadosEndereco::new).toList();
         return ResponseEntity.ok(dadosEnderecos);
     }
+
+    //deletar endereço
+    public ResponseEntity deleteAdress(Long id){
+        if (!verifyAdress(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        adressRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    //atualizar endereço
+    public ResponseEntity updateAdress(Long id, DadosEndereco dados){
+        if(!verifyAdress(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        var endereco = adressRepository.findById(id).get();
+        endereco.update(dados);
+        adressRepository.save(endereco);
+        return ResponseEntity.ok(new DadosEndereco(endereco));
+    }
+
 }
