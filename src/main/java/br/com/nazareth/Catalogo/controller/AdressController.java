@@ -1,5 +1,6 @@
 package br.com.nazareth.Catalogo.controller;
 
+import br.com.nazareth.Catalogo.model.adress.DadosEndereco;
 import br.com.nazareth.Catalogo.model.adress.NewAdress;
 import br.com.nazareth.Catalogo.service.AdressService;
 import br.com.nazareth.Catalogo.service.user.UsuarioDetailsImpl;
@@ -30,5 +31,10 @@ public class AdressController {
     @DeleteMapping
     public ResponseEntity deleteAdress (@PathVariable Long adressId){
         return adressService.deleteAdress(adressId);
+    }
+
+    @PutMapping
+    public ResponseEntity updateAdress(@PathVariable Long id, @RequestBody DadosEndereco dados){
+        return adressService.updateAdress(id, dados);
     }
 }
