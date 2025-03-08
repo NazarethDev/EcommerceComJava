@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface ComentariosRepository extends JpaRepository <Comentarios, Long> {
 
     List<Comentarios> findByProdutoId(Long productId);
+
+    List<Comentarios> findComentarioByAutorId(Long autorId);
 }

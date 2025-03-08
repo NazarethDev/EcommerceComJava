@@ -18,14 +18,12 @@ public class AdressController {
 
     @PostMapping
     public ResponseEntity addAdress (@AuthenticationPrincipal UsuarioDetailsImpl userDetails, @RequestBody NewAdress dados){
-        Long userId = userDetails.getId();
-        return adressService.novoEndereco(dados, userId);
+        return adressService.novoEndereco(dados, userDetails.getId());
     }
 
     @GetMapping
     public ResponseEntity showAdress(@AuthenticationPrincipal UsuarioDetailsImpl userDetails, @RequestParam boolean isEntrega){
-        Long userId = userDetails.getId();
-        return adressService.showAdresses(userId,isEntrega);
+        return adressService.showAdresses(userDetails.getId(),isEntrega);
     }
 
     @DeleteMapping
