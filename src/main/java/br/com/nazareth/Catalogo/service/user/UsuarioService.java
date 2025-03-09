@@ -1,15 +1,11 @@
 package br.com.nazareth.Catalogo.service.user;
 
-import br.com.nazareth.Catalogo.entity.Comentarios;
 import br.com.nazareth.Catalogo.entity.Usuario;
-import br.com.nazareth.Catalogo.model.coment.ComentarioGerado;
-import br.com.nazareth.Catalogo.model.coment.ComentsList;
 import br.com.nazareth.Catalogo.model.coment.DadosComentario;
-import br.com.nazareth.Catalogo.model.user.DadosAutenticacao;
-import br.com.nazareth.Catalogo.model.user.DadosCadastro;
-import br.com.nazareth.Catalogo.model.user.JWTTokenDates;
-import br.com.nazareth.Catalogo.model.user.Role;
+import br.com.nazareth.Catalogo.model.order.DadosDoPedido;
+import br.com.nazareth.Catalogo.model.user.*;
 import br.com.nazareth.Catalogo.repository.ComentariosRepository;
+import br.com.nazareth.Catalogo.repository.PedidoRepository;
 import br.com.nazareth.Catalogo.repository.UsuarioRepository;
 import br.com.nazareth.Catalogo.service.security.TokenService;
 import jakarta.validation.Valid;
@@ -41,7 +37,8 @@ public class UsuarioService {
     @Autowired
     private ComentariosRepository comentRepository;
 
-
+    @Autowired
+    private PedidoRepository orderRepository;
 
     public ResponseEntity entrar (@Valid DadosAutenticacao dados){
         try {
@@ -55,10 +52,6 @@ public class UsuarioService {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
-
-    private void setDadosNovoUsuario(DadosCadastro dados){
-
     }
 
     public ResponseEntity newUser (DadosCadastro dados){
@@ -90,5 +83,26 @@ public class UsuarioService {
         List<DadosComentario> listaComentarios = comentarios.stream()
                 .map(DadosComentario::new).toList();
         return ResponseEntity.ok(listaComentarios);
+    }
+
+    //mostra dados do usuário
+    public ResponseEntity showUserDates(Long userId){
+        var user = usuarioRepository.findById(userId);
+        if (user.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        var usuario = user.get();
+        return ResponseEntity.ok(new DadosUsuario(usuario));
+    }
+
+    //lista de pedidos
+    public ResponseEntity orderHistoty (Long userId){
+        var pedidos = orderRepository.findByClienteId(userId);
+        if (pedidos.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        List<DadosDoPedido> listaPedidos = pedidos.stream()
+                .map(DadosDoPedido::new).toList();
+        return ResponseEntity.ok(listaPedidos);
     }
 }

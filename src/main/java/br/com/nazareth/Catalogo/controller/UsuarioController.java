@@ -4,7 +4,6 @@ import br.com.nazareth.Catalogo.model.user.DadosCadastro;
 import br.com.nazareth.Catalogo.service.user.UsuarioDetailsImpl;
 import br.com.nazareth.Catalogo.service.user.UsuarioService;
 import jakarta.validation.Valid;
-import org.hibernate.annotations.WhereJoinTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,5 +29,15 @@ public class UsuarioController {
     @GetMapping("/mycoments")
     public ResponseEntity showUserComents (@AuthenticationPrincipal UsuarioDetailsImpl userDetails){
         return userService.showComents(userDetails.getId());
+    }
+
+    @GetMapping
+    public ResponseEntity showUserInfo(@AuthenticationPrincipal UsuarioDetailsImpl userDetails){
+        return userService.showUserDates(userDetails.getId());
+    }
+
+    @GetMapping("/myordershistory")
+    public ResponseEntity historidoPedidos(@AuthenticationPrincipal UsuarioDetailsImpl userDetails){
+        return userService.orderHistoty(userDetails.getId());
     }
 }

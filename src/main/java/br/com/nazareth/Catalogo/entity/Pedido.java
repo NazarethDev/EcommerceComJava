@@ -86,4 +86,12 @@ public class Pedido {
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
+
+    public Endereco getEnderecoFaturacao() {
+        return enderecoFaturacao;
+    }
+
+    public void setEnderecoFaturacao(Endereco enderecoFaturacao) {
+        this.enderecoFaturacao = enderecoFaturacao;
+    }
 }
