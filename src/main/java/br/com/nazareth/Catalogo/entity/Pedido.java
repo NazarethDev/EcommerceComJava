@@ -31,6 +31,10 @@ public class Pedido {
     private double valorEntrega;
     private double valorProdutos;
 
+    @ManyToOne
+    @JoinColumn(name = "promocao_id")
+    private Promocao promocao;
+
     public Long getId() {
         return id;
     }
@@ -93,5 +97,13 @@ public class Pedido {
 
     public void setEnderecoFaturacao(Endereco enderecoFaturacao) {
         this.enderecoFaturacao = enderecoFaturacao;
+    }
+
+    public Promocao getPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(Promocao promocao) {
+        this.promocao = promocao;
     }
 }
