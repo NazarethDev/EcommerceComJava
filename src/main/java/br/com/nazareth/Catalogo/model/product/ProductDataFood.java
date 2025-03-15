@@ -20,11 +20,11 @@ public record ProductDataFood(
         @NotNull
         TipoAlimento tipoAlimento,
         @NotBlank
-        Integer quant
+        Integer quantEst
 ){
         public ProductDataFood (Produto produto){
                 this(produto.getNome(), produto.getDescricao(), produto.getPrecoParaVenda(),
                         produto.getPrecoCompra(), produto.getDataValidade(),
-                        produto.getTipoAlimento(), produto.getQuant());
+                        produto.getTipoAlimento(), produto.getQuantEst());
         }
 }

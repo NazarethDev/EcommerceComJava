@@ -29,7 +29,7 @@ public record ShowProductDetails(
                 produto.getCategoriaProduto(),
                 produto.getAlimento() ? produto.getDataValidade() : null,
                 produto.getAlimento() ? produto.getTipoAlimento() : null,
-                produto.getQuant()
+                produto.getQuantEst()
         );
     }
 }

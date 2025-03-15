@@ -1,9 +1,6 @@
 package br.com.nazareth.Catalogo.model.order;
 
-import br.com.nazareth.Catalogo.entity.Endereco;
-import br.com.nazareth.Catalogo.entity.Pedido;
-import br.com.nazareth.Catalogo.entity.Produto;
-import br.com.nazareth.Catalogo.entity.Usuario;
+import br.com.nazareth.Catalogo.entity.*;
 
 import java.util.List;
 
@@ -15,11 +12,12 @@ public record DadosDoPedido(
         double valorTotal,
         double valorProdutos,
         double valorEntrega,
-        List<Produto> produtos
+        List<Produto> produtos,
+        Promocao promocao
 ) {
     public DadosDoPedido (Pedido pedido){
         this(pedido.getId(), pedido.getCliente(),
                 pedido.getEnderecoEntrega(),pedido.getEnderecoFaturacao(),
-                pedido.getValorTotal(), pedido.getValorProdutos(), pedido.getValorEntrega(),pedido.getProdutos());
+                pedido.getValorTotal(), pedido.getValorProdutos(), pedido.getValorEntrega(),pedido.getProdutos(), pedido.getPromocao());
     }
 }

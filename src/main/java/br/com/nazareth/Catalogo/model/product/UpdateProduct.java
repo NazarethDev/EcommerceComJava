@@ -10,7 +10,7 @@ public record UpdateProduct (
         Double precoCompra,
         LocalDate dataValidade,
         TipoAlimento tipoAlimento,
-        Integer quant,
+        Integer quantEst,
         CategoriaProduto categoriaProduto,
         Boolean alimento
 ){

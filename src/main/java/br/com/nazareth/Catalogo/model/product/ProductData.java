@@ -14,13 +14,13 @@ public record ProductData (
         @NotBlank
         Double precoCompra,
         @NotBlank
-        Integer quant,
+        Integer quantEst,
         @NotNull
         CategoriaProduto categoriaProduto
 ) {
         public ProductData(Produto produto){
                 this(produto.getNome(), produto.getDescricao(),
                         produto.getPrecoParaVenda(), produto.getPrecoCompra(),
-                        produto.getQuant(), produto.getCategoriaProduto());
+                        produto.getQuantEst(), produto.getCategoriaProduto());
         }
 }

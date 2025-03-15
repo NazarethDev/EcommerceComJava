@@ -33,7 +33,8 @@ public class Produto {
 
     @Enumerated(EnumType.STRING)
     private CategoriaProduto categoriaProduto;
-    private Integer quant;
+    private Integer quantEst;
+    private Integer quantPed;
     private Boolean deleted = false;
     private Boolean alimento = false;
 
@@ -52,7 +53,7 @@ public class Produto {
         this.descricao = newProductData.description();
         this.precoParaVenda = newProductData.precoParaVenda();
         this.precoCompra = newProductData.precoCompra();
-        this.quant = newProductData.quant();
+        this.quantEst = newProductData.quantEst();
         this.categoriaProduto = newProductData.categoriaProduto();
         this.createdAt = LocalDate.now();
     }
@@ -66,7 +67,7 @@ public class Produto {
         this.precoParaVenda = newProductData.precoParaVenda();
         this.dataValidade = newProductData.dataValidade();
         this.tipoAlimento = newProductData.tipoAlimento();
-        this.quant = newProductData.quant();
+        this.quantEst = newProductData.quantEst();
         this.alimento = true;
         this.createdAt = LocalDate.now();
     }
@@ -87,8 +88,8 @@ public class Produto {
         if (dadosAtualizados.dataValidade() != null) {
             this.dataValidade = dadosAtualizados.dataValidade();
         }
-        if (dadosAtualizados.quant() != null) {
-            this.quant = dadosAtualizados.quant();
+        if (dadosAtualizados.quantEst() != null) {
+            this.quantEst = dadosAtualizados.quantEst();
         }
         if (dadosAtualizados.categoriaProduto() != null){
             this.categoriaProduto = dadosAtualizados.categoriaProduto();
@@ -179,9 +180,6 @@ public class Produto {
         this.categoriaProduto = categoriaProduto;
     }
 
-    public Integer getQuant() {
-        return quant;
-    }
 
     public Boolean getDeleted() {
         return deleted;
@@ -199,10 +197,6 @@ public class Produto {
         this.alimento = alimento;
     }
 
-    public void setQuant(Integer quant) {
-        this.quant = quant;
-    }
-
     public LocalDate getCreatedAt() {
         return createdAt;
     }
@@ -217,5 +211,21 @@ public class Produto {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Integer getQuantEst() {
+        return quantEst;
+    }
+
+    public void setQuantEst(Integer quantEst) {
+        this.quantEst = quantEst;
+    }
+
+    public Integer getQuantPed() {
+        return quantPed;
+    }
+
+    public void setQuantPed(Integer quantPed) {
+        this.quantPed = quantPed;
     }
 }

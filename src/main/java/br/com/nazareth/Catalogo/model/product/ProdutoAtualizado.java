@@ -10,7 +10,7 @@ public record ProdutoAtualizado(
         String description,
         Double precoParaVenda,
         Double precoCompra,
-        Integer quant,
+        Integer quantEst,
         CategoriaProduto categoriaProduto,
         Boolean alimento,
         LocalDate updatedAt,
@@ -20,7 +20,7 @@ public record ProdutoAtualizado(
         this(
                 produto.getId(), produto.getNome(), produto.getDescricao(),
                 produto.getPrecoParaVenda(), produto.getPrecoCompra(),
-                produto.getQuant(), produto.getCategoriaProduto(),
+                produto.getQuantEst(), produto.getCategoriaProduto(),
                 produto.getAlimento(), produto.getUpdatedAt(), produto.getCreatedAt()
         );
     }
